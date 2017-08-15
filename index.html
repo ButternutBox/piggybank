@@ -34,52 +34,16 @@ label {
     $(function () {
         DNode(function(){
             this.chargeSucceeded = function(charge) {
-                var chargeLi = $('<li></li>');
-                $(chargeLi).text("Charge for $"+(charge.amount/100).toFixed(2) +
-                                 " with description '"+charge.description+"' succeeded!");
-
-                $('#charges').prepend(chargeLi);
                 document.getElementById('bahamenshort').play();
             }
         }).connect();
-
-        $('form').submit(function(){
-            setTimeout(function(){
-                $('input[type=text]').val('');
-            }, 0)
-        })
     });
 </script>
 </head>
 <body>
 
 <div>
-    <h1>Payments!</h1>
-</div>
-
-<ul id="charges">
-</ul>
-
-<div id="test-form">
-    <h2>Create a test payment</h2>
-    <p>This will make an actual test payment on the configured test account, 
-    and use our actual webhook system to send the webhook, which will then show up here.
-    It may take a minute, so be patient!</p>
-    
-    <form action="/test-payment" method="POST" target="hidden">
-        <label for="amount">Amount: </label>
-        <input id="amount" name="amount" type="text" />
-        <br />
-
-        <label for="amount">Description: </label>
-        <input id="description" name="description" type="text" />
-        <br />
-
-        <label for="submit">&nbsp;</label>
-        <input type="submit" value="Send" />
-    </form>
-
-    <iframe name="hidden" id="hidden" width="0" height="0" style="width:0; height:0;"></iframe>
+    <h1>Butternut Box Piggy Bank!</h1>
 </div>
 
 <audio id="bahamenshort" src="/bahamenshort.wav" style="display:none;" preload></audio>
