@@ -25,23 +25,23 @@ app.post('/test-payment', function(request, response){
 
 app.post('/stripe-webhook', function(request, response){
 	console.log(request.body)
-	if (request.body.type === 'charge.succeeded') {
+	if (request.body.type === 'customer.created') {
 		console.log(request.body.data.object);
-		emitter.emit('chargeSucceeded', request.body.data.object);
+		emitter.emit('customerCreated', request.body.data.object);
 	}
 	response.send('OK');
 });
 
 function chargeServer(client, con) {
 	con.on('ready', function () {
-		if (typeof client['chargeSucceeded'] === 'function') {
-			emitter.on('chargeSucceeded', client['chargeSucceeded']);
+		if (typeof client['customerCreated'] === 'function') {
+			emitter.on('customerCreated', client['customerCreated']);
 		}
     });
 
     con.on('end', function () {
-        if (typeof client['chargeSucceeded'] === 'function') {
-            emitter.removeListener('chargeSucceeded', client['chargeSucceeded']);
+        if (typeof client['customerCreated'] === 'function') {
+            emitter.removeListener('customerCreated', client['customerCreated']);
         }
     });
 }
